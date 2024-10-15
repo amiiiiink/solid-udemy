@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Repositories\Product\ProductMySqlRepository;
-use App\Repositories\Stock\StockMySqlRepository;
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Stock\StockRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -11,8 +11,8 @@ use Illuminate\Validation\ValidationException;
 class OrderProcessingService
 {
     public function __construct(
-        public ProductMySqlRepository $productMySqlRepository,
-        public StockMySqlRepository   $stockMySqlRepository
+        public ProductRepositoryInterface $productRepository,
+        public StockRepositoryInterface   $stockRepository
     )
     {
 
@@ -21,10 +21,10 @@ class OrderProcessingService
     public function execute($productId, Request $request)
     {
         // Find the Product
-        $product = $this->productMySqlRepository->firstById($productId);
+        $product = $this->productRepository->firstById($productId);
 
         // Get the stock level
-        $stock = $this->stockMySqlRepository->getQuantity($productId);
+        $stock = $this->stockRepository->getQuantity($productId);
 
         // check the stock level
         if ($stock->quantity < 1) {
@@ -64,16 +64,16 @@ class OrderProcessingService
 
     }
 
-    protected function processPaymentViaStripe($provider, $total)
-    {
-        $price = "£{$total}";
-        return 'Processing payment of ' . $price . ' through ' . $provider;
-    }
-
     protected function applySpecialDiscount($product)
     {
         $discount = 0.20 * $product->price;
         return number_format(($product->price - $discount), 2);
+    }
+
+    protected function processPaymentViaStripe($provider, $total)
+    {
+        $price = "£{$total}";
+        return 'Processing payment of ' . $price . ' through ' . $provider;
     }
 
 }

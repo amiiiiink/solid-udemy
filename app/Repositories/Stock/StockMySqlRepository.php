@@ -5,7 +5,7 @@ namespace App\Repositories\Stock;
 
 use DB;
 
-class StockMySqlRepository
+class StockMySqlRepository implements StockRepositoryInterface
 {
 
     public function getQuantity($productId)
