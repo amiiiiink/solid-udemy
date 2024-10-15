@@ -6,4 +6,6 @@ interface StockRepositoryInterface
 {
 
     public function getQuantity($productId);
+
+    public function checkAvailability($productId);
 }

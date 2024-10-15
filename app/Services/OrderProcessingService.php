@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Stock\StockRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class OrderProcessingService
 {
@@ -23,14 +22,11 @@ class OrderProcessingService
         $product = $this->productRepository->firstById($productId);
 
         // Get the stock level
-        $stock = $this->stockRepository->getQuantity($productId);
+        $this->stockRepository->getQuantity($productId);
 
         // check the stock level
-        if ($stock->quantity < 1) {
-            throw ValidationException::withMessages([
-                'stock' => ['we are out of stock ']
-            ]);
-        }
+        $this->stockRepository->checkAvailability($productId);
+
 
         // Apply discount
         $total = $this->applySpecialDiscount($product);
