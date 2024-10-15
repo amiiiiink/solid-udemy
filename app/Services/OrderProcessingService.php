@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Stock\StockRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class OrderProcessingService
@@ -48,11 +47,8 @@ class OrderProcessingService
         if (!empty($paymentSuccessMessage)) {
 
             // update Stock
-            DB::table('stocks')
-                ->where('product_id', $productId)
-                ->update([
-                    'quantity' => $stock->quantity - 1
-                ]);
+            $this->stockRepository->updateQuantity($productId);
+
 
             return [
                 'payment_message' => $paymentSuccessMessage,

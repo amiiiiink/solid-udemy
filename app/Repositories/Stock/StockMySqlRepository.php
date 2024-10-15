@@ -20,4 +20,13 @@ class StockMySqlRepository implements StockRepositoryInterface
     {
         return $this->model->find($productId);
     }
+
+    public function updateQuantity($productId)
+    {
+        $stock=$this->model
+            ->where('product_id', $productId);
+            $stock->update([
+                'quantity' => $stock->first()->quantity - 1
+            ]);
+    }
 }
