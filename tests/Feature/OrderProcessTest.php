@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Product;
 use App\Models\Stock;
 use Database\Factories\ProductFactory;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
@@ -42,8 +43,8 @@ class OrderProcessTest extends TestCase
     /** @test */
     public function an_exception_is_thrown_if_stock_is_less_than_one(): void
     {
-        $this->expectException(ValidationException::class);
 
+        $this->expectException(ValidationException::class);
         ProductFactory::new()->count(1)->create();
         $product = Product::first();
         $stock=Stock::query()->create([
@@ -55,6 +56,8 @@ class OrderProcessTest extends TestCase
             ->post("/order/{$product->id}/process", [
                 'payment_method' => 'stripe'
             ]);
+
+
 
     }
 }

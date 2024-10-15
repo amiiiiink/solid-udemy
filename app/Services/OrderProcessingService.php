@@ -1,26 +1,32 @@
 <?php
+
 namespace App\Services;
 
+use App\Repositories\Product\ProductMySqlRepository;
+use App\Repositories\Stock\StockMySqlRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OrderProcessingService
 {
-    public function execute($product_id, Request $request)
+    public function __construct(
+        public ProductMySqlRepository $productMySqlRepository,
+        public StockMySqlRepository   $stockMySqlRepository
+    )
+    {
+
+    }
+
+    public function execute($productId, Request $request)
     {
         // Find the Product
-        $product = DB::table('products')->find($product_id);
+        $product = $this->productMySqlRepository->firstById($productId);
 
         // Get the stock level
-        $stock = DB::table('stocks')->find($product_id);
-
+        $stock = $this->stockMySqlRepository->getQuantity($productId);
 
         // check the stock level
-//        if ($stock->quantity < 1) {
-//            throw new NotFoundHttpException('We are out of stock');
-//        }
         if ($stock->quantity < 1) {
             throw ValidationException::withMessages([
                 'stock' => ['we are out of stock ']
@@ -43,7 +49,7 @@ class OrderProcessingService
 
             // update Stock
             DB::table('stocks')
-                ->where('product_id', $product_id)
+                ->where('product_id', $productId)
                 ->update([
                     'quantity' => $stock->quantity - 1
                 ]);
@@ -51,7 +57,7 @@ class OrderProcessingService
             return [
                 'payment_message' => $paymentSuccessMessage,
                 'discounted_price' => $total,
-                'original_price'  => $product->price,
+                'original_price' => $product->price,
                 'message' => 'Thank you, your order is being processed'
             ];
         }
@@ -67,7 +73,7 @@ class OrderProcessingService
     protected function applySpecialDiscount($product)
     {
         $discount = 0.20 * $product->price;
-        return number_format(($product->price - $discount),2);
+        return number_format(($product->price - $discount), 2);
     }
 
 }

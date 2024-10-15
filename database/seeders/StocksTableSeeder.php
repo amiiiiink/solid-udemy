@@ -1,5 +1,6 @@
 <?php
 namespace Database\Seeders;
+use App\Models\Product;
 use App\Models\Stock;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,7 @@ class StocksTableSeeder extends Seeder
      */
     public function run()
     {
-        $products = Product::all();
+        $products = Product::query()->all();
 
         foreach ($products as $product) {
             Stock::factory()->create([

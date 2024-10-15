@@ -20,7 +20,7 @@ class ProcessOrdersController extends Controller
      * Handle the incoming request.
      *
      * @param Product $product
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return array
      */
     public function __invoke($product_id, Request $request)
