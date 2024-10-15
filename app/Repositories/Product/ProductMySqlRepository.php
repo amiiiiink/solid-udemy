@@ -2,12 +2,22 @@
 
 namespace App\Repositories\Product;
 
-use DB;
+use App\Models\Product;
+
 
 class ProductMySqlRepository implements ProductRepositoryInterface
 {
-    public function firstById($productId)
+    public function __construct(public Product $model)
     {
-        return DB::table('products')->find($productId);
+
+    }
+
+    /**
+     * @param $productId
+     * @return Product|array|null
+     */
+    public function firstById($productId): Product|array|null
+    {
+        return $this->model->find($productId);
     }
 }
