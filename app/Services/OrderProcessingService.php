@@ -30,8 +30,7 @@ class OrderProcessingService
 
 
         // Apply discount
-//        $total = $this->applySpecialDiscount($product);
-        $total = $this->discountService->with($product)->applySpecialDiscount();
+        $total = $this->discountService->applySpecialDiscount();
 
         // check for payment method
         $paymentSuccessMessage = '';

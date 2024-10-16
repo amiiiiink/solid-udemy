@@ -7,16 +7,8 @@ use App\Models\Product;
 class DiscountService
 {
 
-    private Product $product;
-
-    /**
-     * @param Product $product
-     * @return $this
-     */
-    public function with(Product $product): static
+    public function __construct(public Product $product)
     {
-        $this->product = $product;
-        return $this;
     }
 
     /**
