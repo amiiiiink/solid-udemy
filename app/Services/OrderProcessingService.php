@@ -10,7 +10,8 @@ class OrderProcessingService
 {
     public function __construct(
         public ProductRepositoryInterface $productRepository,
-        public StockRepositoryInterface   $stockRepository
+        public StockRepositoryInterface   $stockRepository,
+        public DiscountService $discountService
     )
     {
 
@@ -29,7 +30,8 @@ class OrderProcessingService
 
 
         // Apply discount
-        $total = $this->applySpecialDiscount($product);
+//        $total = $this->applySpecialDiscount($product);
+        $total = $this->discountService->with($product)->applySpecialDiscount();
 
         // check for payment method
         $paymentSuccessMessage = '';
@@ -56,11 +58,7 @@ class OrderProcessingService
 
     }
 
-    protected function applySpecialDiscount($product)
-    {
-        $discount = 0.20 * $product->price;
-        return number_format(($product->price - $discount), 2);
-    }
+
 
     protected function processPaymentViaStripe($provider, $total)
     {
