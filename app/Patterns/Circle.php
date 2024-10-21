@@ -6,13 +6,13 @@ class Circle implements Shapeable
 {
     public mixed $radius;
 
-    public function __construct($radius)
+    public function __construct($radius = 110)
     {
         $this->radius = $radius;
     }
 
-    public function area()
+    public function area(): float|int
     {
-        return $this->radius * $this->radius *pi();
+        return $this->radius * $this->radius * pi();
     }
 }

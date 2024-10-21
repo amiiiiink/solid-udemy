@@ -14,9 +14,9 @@ Route::post('order/{product_id}/process', ProcessOrdersController::class);
 Route::get('area', function(AreaCalculator $areaCalculator) {
 
 
-//    $sqaure = resolve(Square::class,['width'=>10,'height'=>20]);
-//    $triangle = resolve(Triangle::class,['height'=>10,'base'=>20]);
-    $circle = resolve(Circle::class,['radius'=>21]);
-    return $areaCalculator->calculate($circle);
+    $shape = resolve(Square::class);
+//    $shape = resolve(Triangle::class);
+//    $shape = resolve(Circle::class);
+    return $areaCalculator->calculate($shape);
 
 });
