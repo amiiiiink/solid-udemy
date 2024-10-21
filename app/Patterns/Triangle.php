@@ -2,7 +2,7 @@
 
 namespace App\Patterns;
 
-class Triangle
+class Triangle implements Shapeable
 {
     public mixed $height;
     public mixed $base;
@@ -11,5 +11,10 @@ class Triangle
     {
         $this->height = $height;
         $this->base = $base;
+    }
+
+    public function area()
+    {
+        return $this->height * $this->base / 2;
     }
 }

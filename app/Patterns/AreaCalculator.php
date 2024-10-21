@@ -5,11 +5,12 @@ namespace App\Patterns;
 
 class AreaCalculator
 {
-    public function calculate($shape): float|int
+    public function calculate(Shapeable $shapeable): float|int
     {
-        if(is_a($shape,Triangle::class)){
-            return $shape->height * $shape->base / 2;
-        }
-        return $shape->width * $shape->height;
+        return $shapeable->area();
+//        if(is_a($shape,Triangle::class)){
+//            return $shape->height * $shape->base / 2;
+//        }
+//        return $shape->width * $shape->height;
     }
 }
