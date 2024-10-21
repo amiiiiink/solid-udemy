@@ -5,8 +5,12 @@ namespace App\Patterns;
 
 class AreaCalculator
 {
-    public function calculate(Shapeable $shapeable): float|int
+    public function __construct(public Shapeable $shapeable)
     {
-        return $shapeable->area();
+    }
+
+    public function calculate(): float|int
+    {
+        return $this->shapeable->area();
     }
 }
