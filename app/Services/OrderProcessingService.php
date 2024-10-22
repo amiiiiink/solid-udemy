@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Stock\StockRepositoryInterface;
 use App\Services\Discount\DiscountService;
+use App\Services\Discount\TwentyPercentDiscount;
 use App\Services\PaymentGateways\Gateway;
 
 class OrderProcessingService
@@ -12,14 +13,17 @@ class OrderProcessingService
     public function __construct(
         public ProductRepositoryInterface $productRepository,
         public StockRepositoryInterface   $stockRepository,
-        public DiscountService            $discountService,
         public Gateway                     $gateway
     )
     {
 
     }
 
-    public function execute($productId)
+    /**
+     * @param $productId
+     * @return array
+     */
+    public function execute($productId): array
     {
         // Find the Product
         $product = $this->productRepository->firstById($productId);
@@ -32,7 +36,7 @@ class OrderProcessingService
 
 
         // Apply discount
-        $total = $this->discountService->apply($product);
+        $total = DiscountService::make($product,new TwentyPercentDiscount())->apply($product);
 
 
         // Attempt payment
