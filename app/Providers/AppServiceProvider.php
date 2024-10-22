@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Patterns\Circle;
 use App\Patterns\Square;
-use App\Patterns\Triangle;
+use App\Services\Discount\TwentyPercentDiscount;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,9 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
-
-        app()->singleton(\App\Patterns\Shapeable::class, Square::class);
+        app()->singleton(\App\Patterns\Shapeable::class,
+            Square::class);
+        app()->singleton(\App\Services\Discount\DiscountInterface::class,
+            TwentyPercentDiscount::class);
     }
 
     /**

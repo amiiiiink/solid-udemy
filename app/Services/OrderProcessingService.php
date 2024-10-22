@@ -32,7 +32,7 @@ class OrderProcessingService
 
 
         // Apply discount
-        $total = $this->discountService->applySpecialDiscount();
+        $total = $this->discountService->apply($product);
 
 
         // Attempt payment

@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\Product;
 use App\Models\Stock;
 use App\Services\Discount\DiscountService;
+use App\Services\Discount\EightyPercentDiscount;
+use App\Services\Discount\FiftyPercentDiscount;
 use App\Services\Discount\TwentyPercentDiscount;
 use Database\Factories\ProductFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -60,9 +62,46 @@ class OrderProcessTest extends TestCase
         ]);
 
         $discountService = new DiscountService($product, new TwentyPercentDiscount);
-        $total = $discountService->apply();
+        $total = $discountService->apply($product);
 
         $this->assertEquals(32, $total);
 
     }
+
+    /** @test */
+    public function apply50PercentDiscount(): void
+    {
+
+        $product = Product::create([
+            'sku' => 'BP063-0001',
+            'name' => 'name-0001',
+            'price' => '40',
+        ]);
+
+        $discountService = new DiscountService($product, new FiftyPercentDiscount);
+        $total = $discountService->apply($product);
+
+        $this->assertEquals(20, intval($total));
+
+    }
+
+
+    /** @test */
+    public function apply80PercentDiscount(): void
+    {
+
+        $product = Product::create([
+            'sku' => 'BP063-0001',
+            'name' => 'name-0001',
+            'price' => '40',
+        ]);
+
+        $discountService = new DiscountService($product, new EightyPercentDiscount);
+        $total = $discountService->apply($product);
+
+        $this->assertEquals(8, intval($total));
+
+    }
+
+
 }
