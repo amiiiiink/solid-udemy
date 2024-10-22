@@ -4,3 +4,6 @@
 - eg . 20%
 -      50%
 -      80%
+
+$discountService = new DiscountService(new TwentyPercentDiscount)
+$discountService->with($product)->apply();
