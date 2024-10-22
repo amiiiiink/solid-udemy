@@ -13,15 +13,7 @@ class DiscountService
     {
     }
 
-    /**
-     * @param $product
-     * @param DiscountInterface $discountInterface
-     * @return static
-     */
-    public static function make($product,DiscountInterface $discountInterface): static
-    {
-        return new static($product,$discountInterface);
-    }
+
 
     public function apply($product)
     {

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Product;
 use App\Models\Stock;
 use App\Services\Discount\DiscountService;
+use App\Services\Discount\DiscountServiceFactory;
 use App\Services\Discount\EightyPercentDiscount;
 use App\Services\Discount\FiftyPercentDiscount;
 use App\Services\Discount\TwentyPercentDiscount;
@@ -113,9 +114,9 @@ class OrderProcessTest extends TestCase
         ]);
 
 
-        $total = DiscountService::make($product, new FiftyPercentDiscount)->apply($product);
+        $total = DiscountServiceFactory::create($product, new FiftyPercentDiscount())->apply($product);
 
-        // 32
+        // 20
         $this->assertSame(20, intval($total));
 
     }

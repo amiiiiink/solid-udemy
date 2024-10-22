@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Stock\StockRepositoryInterface;
 use App\Services\Discount\DiscountService;
+use App\Services\Discount\DiscountServiceFactory;
 use App\Services\Discount\TwentyPercentDiscount;
 use App\Services\PaymentGateways\Gateway;
 
@@ -36,7 +37,8 @@ class OrderProcessingService
 
 
         // Apply discount
-        $total = DiscountService::make($product,new TwentyPercentDiscount())->apply($product);
+//        $total = DiscountService::make($product,new TwentyPercentDiscount())->apply($product);
+        $total = DiscountServiceFactory::create($product, new TwentyPercentDiscount())->apply($product);
 
 
         // Attempt payment
