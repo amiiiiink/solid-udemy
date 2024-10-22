@@ -1,14 +1,21 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Discount;
 
 use App\Models\Product;
 
 class DiscountService
 {
 
-    public function __construct(public Product $product)
+    public function __construct(
+        public Product               $product,
+        public TwentyPercentDiscount $twentyPercentDiscount)
     {
+    }
+
+    public function apply()
+    {
+        return 32;
     }
 
     /**

@@ -7,3 +7,6 @@
 
 $discountService = new DiscountService(new TwentyPercentDiscount)
 $discountService->with($product)->apply();
+
+
+php artisan make:test DiscountServiceTest --unit
