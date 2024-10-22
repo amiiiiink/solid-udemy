@@ -103,5 +103,22 @@ class OrderProcessTest extends TestCase
 
     }
 
+    /** @test */
+    public function it_applies_20_percent_discount_correctly_if_service_is_instantiated_through_make_method(): void
+    {
+        $product = Product::create([
+            'sku' => 'BP063-0001',
+            'name' => 'name-0001',
+            'price' => '40',
+        ]);
+
+
+        $total = DiscountService::make($product, new FiftyPercentDiscount)->apply($product);
+
+        // 32
+        $this->assertSame(20, intval($total));
+
+    }
+
 
 }
