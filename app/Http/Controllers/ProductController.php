@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(DatabaseRepository $repository)
+    public function index(ApiRepository $repository)
     {
         $products = $repository->all();
         return view('welcome', compact('products'));

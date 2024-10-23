@@ -2,7 +2,13 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
+
 abstract class Repository
 {
-    abstract public function all();
+
+    /**
+     * @return Collection
+     */
+    abstract public function all() : Collection;
 }
