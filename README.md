@@ -24,3 +24,8 @@ then objects of type T in a program may be replaced with objects of type
 S without altering any of the desirable properties of that program (e.g. correctness).
 "
 
+# Liskov Substitution Principle (LSP)  : exercise 1
+
+- we have decided to outsource data 
+- storage and will now consume our data through an api
+
