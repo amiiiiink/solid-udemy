@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 
-class DatabaseRepository
+class DatabaseRepository extends Repository
 {
     /**
      * @return Collection

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-class Repository
+abstract class Repository
 {
-
+    abstract public function all();
 }
