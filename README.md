@@ -29,3 +29,5 @@ S without altering any of the desirable properties of that program (e.g. correct
 - we have decided to outsource data 
 - storage and will now consume our data through an api
 
+
+pa make:test ProductTest
