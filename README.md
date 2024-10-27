@@ -31,3 +31,7 @@ S without altering any of the desirable properties of that program (e.g. correct
 
 
 pa make:test ProductTest
+
+1- return type of methods cant change -- Covariance
+2- parameters type of the method cant change - Contravariance
+3- the exception thrown in sub class should either be the same as parent class or more specialized
