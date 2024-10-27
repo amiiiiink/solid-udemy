@@ -1,6 +1,9 @@
 <?php
+interface Fixable
+{
 
-class Vehicle
+}
+class Vehicle implements Fixable
 {
     private string $problemType;
 
@@ -26,7 +29,7 @@ class Mercedes extends Car
 
 class Mechanic
 {
-    public function fix(Car $car)
+    public function fix(Fixable $car)
     {
         return "mechanic is fixing ... ".get_class($car)." - ".$car->problem()." \n";
     }
@@ -37,7 +40,10 @@ $vehicle = new Vehicle('Gera Box Problem ... ');
 
 $mechanic = new Mechanic();
 $car = new Car('Gera Box Problem ... ');
-//echo $mechanic->fix($car);
+$mercedes = new Mercedes('Gera Box Problem ... ');
 echo $mechanic->fix($vehicle);
+//echo $mechanic->fix($vehicle);
+
+
 
 
