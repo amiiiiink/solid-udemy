@@ -31,3 +31,9 @@ S without altering any of the desirable properties of that program (e.g. correct
 
 
 pa make:test ProductTest
+
+# Interface Segregation Principle (ISP)
+
+-  A Client should never be forced to depend on methods it does not use
+-  Altering one method in a class should not affect classes that do not depend on it
+-  Replace fat interfaces with many small , specific interfaces
