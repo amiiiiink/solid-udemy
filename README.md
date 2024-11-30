@@ -37,3 +37,5 @@ pa make:test ProductTest
 -  A Client should never be forced to depend on methods it does not use
 -  Altering one method in a class should not affect classes that do not depend on it
 -  Replace fat interfaces with many small , specific interfaces
+-  new example of store management system (Customer can buy the books. The Books are Shipped and customer gets a message )
+-  
