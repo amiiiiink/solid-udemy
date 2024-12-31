@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class HardCopiesOrderManager extends BaseOrderManager
+class HardCopiesOrderManager extends BaseOrderManager implements Shippable
 {
     /**
      * @param int $shipping
